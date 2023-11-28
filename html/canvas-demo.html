@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Canvas Tool Class demo v1.0.1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Cache-Control" content="no-cache">
+    <style type="text/css">
+        @charset "UTF-8";
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: cadetblue;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: 400;
+            line-height: 28px;
+            font-size: 1.17em;
+        }
+
+        div#container {
+            width: 100%;
+            margin-top: 128px;
+        }
+
+        .canvas_border {
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h3#title {
+            top: 16px;
+            color: gold;
+            margin-bottom: 16px;
+            margin-top: 0px;
+            text-align: center;
+        }
+
+        .canvasx1024y256 {
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        canvas.canvasx1024y256 {
+            border: 0px none;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            width: 1032;
+            height: 136;
+            background-color: rgb(138, 204, 229);
+            display: block;
+        }
+
+        .canvasx256y256 {
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        canvas.canvasx256y256 {
+            border: 0px none;
+            margin-top: -184px;
+            margin-bottom: 8px;
+            width: 264;
+            height: 264;
+            background-color: rgb(138, 204, 229);
+            display: block;
+        }
+
+        .ltcanvasx128y128 {
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        canvas.ltcanvasx128y128 {
+            border: 0px none;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            margin-right: 924px;
+            width: 136;
+            height: 136;
+            background-color: rgb(138, 204, 229);
+            display: block;
+        }
+
+        .rtcanvasx128y128 {
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        canvas.rtcanvasx128y128 {
+            border: 0px none;
+            margin-top: -136px;
+            margin-bottom: 8px;
+            margin-left: 924px;
+            width: 136;
+            height: 136;
+            background-color: rgb(138, 204, 229);
+            display: block;
+        }
+
+        div#group1 {
+            width: 1088px;
+            height: 176px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
+        div#group2 {
+            width: 1088px;
+            height: 288px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
+        div#group3 {
+            width: 1088px;
+            height: 176px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body id="body" onload="javascript:startCanvas(this);">
+    <div id="container" class="container">
+        <div class="canvas_border">
+            <h3 id="title">Canvas Tool Class demo v1.0.1</h3>
+            <div id="group1">
+                <canvas class="ltcanvasx128y128" id="ltcanvasx128y128" width="136" height="136"></canvas>
+                <canvas class="rtcanvasx128y128" id="rtcanvasx128y128" width="136" height="136"></canvas>
+            </div>
+            <div id="group2">
+                <canvas class="canvasx256y256" id="canvasx256y256" width="264" height="264"></canvas>
+            </div>
+            <div id="group3">
+                <canvas class="canvasx1024y256" id="canvasx1024y128" width="1032" height="136"></canvas>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" type="module" src="/js/js-sdk-canvas-1.0.1.js"></script>
+    <script type="text/javascript">
+        "use strict";
+        const baseData = new Float32Array([0.000000, 0.017452, 0.034899, 0.052336, 0.069756, 0.087156, 0.104528, 0.121869, 0.139173, 0.156434, 0.173648, 0.190809, 0.207912, 0.224951, 0.241922, 0.258819, 0.275637, 0.292372, 0.309017, 0.325568, 0.342020, 0.358368, 0.374607, 0.390731, 0.406737, 0.422618, 0.438371, 0.453990, 0.469472, 0.484810, 0.500000, 0.515038, 0.529919, 0.544639, 0.559193, 0.573576, 0.587785, 0.601815, 0.615661, 0.629320, 0.642788, 0.656059, 0.669131, 0.681998, 0.694658, 0.707107, 0.719340, 0.731354, 0.743145, 0.754710, 0.766044, 0.777146, 0.788011, 0.798636, 0.809017, 0.819152, 0.829038, 0.838671, 0.848048, 0.857167, 0.866025, 0.874620, 0.882948, 0.891007, 0.898794, 0.906308, 0.913545, 0.920505, 0.927184, 0.933580, 0.939693, 0.945519, 0.951057, 0.956305, 0.961262, 0.965926, 0.970296, 0.974370, 0.978148, 0.981627, 0.984808, 0.987688, 0.990268, 0.992546, 0.994522, 0.996195, 0.997564, 0.998630, 0.999391, 0.999848, 1.000000, 0.999848, 0.999391, 0.998630, 0.997564, 0.996195, 0.994522, 0.992546, 0.990268, 0.987688, 0.984808, 0.981627, 0.978148, 0.974370, 0.970296, 0.965926, 0.961262, 0.956305, 0.951057, 0.945519, 0.939693, 0.933580, 0.927184, 0.920505, 0.913545, 0.906308, 0.898794, 0.891007, 0.882948, 0.874620, 0.866025, 0.857167, 0.848048, 0.838671, 0.829038, 0.819152, 0.809017, 0.798636, 0.788011, 0.777146, 0.766044, 0.754710, 0.743145, 0.731354, 0.719340, 0.707107, 0.694658, 0.681998, 0.669131, 0.656059, 0.642788, 0.629320, 0.615661, 0.601815, 0.587785, 0.573576, 0.559193, 0.544639, 0.529919, 0.515038, 0.500000, 0.484810, 0.469472, 0.453991, 0.438371, 0.422618, 0.406737, 0.390731, 0.374607, 0.358368, 0.342020, 0.325568, 0.309017, 0.292372, 0.275637, 0.258819, 0.241922, 0.224951, 0.207912, 0.190809, 0.173648, 0.156434, 0.139173, 0.121869, 0.104528, 0.087156, 0.069756, 0.052336, 0.034900, 0.017452, 0.000000, -0.017452, -0.034899, -0.052336, -0.069756, -0.087156, -0.104528, -0.121869, -0.139173, -0.156434, -0.173648, -0.190809, -0.207912, -0.224951, -0.241922, -0.258819, -0.275637, -0.292372, -0.309017, -0.325568, -0.342020, -0.358368, -0.374607, -0.390731, -0.406737, -0.422618, -0.438371, -0.453990, -0.469472, -0.484810, -0.500000, -0.515038, -0.529919, -0.544639, -0.559193, -0.573576, -0.587785, -0.601815, -0.615661, -0.629320, -0.642788, -0.656059, -0.669131, -0.681998, -0.694658, -0.707107, -0.719340, -0.731354, -0.743145, -0.754710, -0.766044, -0.777146, -0.788011, -0.798636, -0.809017, -0.819152, -0.829038, -0.838671, -0.848048, -0.857167, -0.866025, -0.874620, -0.882948, -0.891007, -0.898794, -0.906308, -0.913545, -0.920505, -0.927184, -0.933580, -0.939693, -0.945519, -0.951057, -0.956305, -0.961262, -0.965926, -0.970296, -0.974370, -0.978148, -0.981627, -0.984808, -0.987688, -0.990268, -0.992546, -0.994522, -0.996195, -0.997564, -0.998630, -0.999391, -0.999848, -1.000000, -0.999848, -0.999391, -0.998630, -0.997564, -0.996195, -0.994522, -0.992546, -0.990268, -0.987688, -0.984808, -0.981627, -0.978148, -0.974370, -0.970296, -0.965926, -0.961262, -0.956305, -0.951057, -0.945519, -0.939693, -0.933580, -0.927184, -0.920505, -0.913545, -0.906308, -0.898794, -0.891007, -0.882948, -0.874620, -0.866025, -0.857167, -0.848048, -0.838671, -0.829038, -0.819152, -0.809017, -0.798636, -0.788011, -0.777146, -0.766044, -0.754710, -0.743145, -0.731354, -0.719340, -0.707107, -0.694658, -0.681998, -0.669131, -0.656059, -0.642788, -0.629320, -0.615661, -0.601815, -0.587785, -0.573576, -0.559193, -0.544639, -0.529919, -0.515038, -0.500000, -0.484810, -0.469472, -0.453991, -0.438371, -0.422618, -0.406737, -0.390731, -0.374607, -0.358368, -0.342020, -0.325568, -0.309017, -0.292372, -0.275637, -0.258819, -0.241922, -0.224951, -0.207912, -0.190809, -0.173648, -0.156434, -0.139173, -0.121869, -0.104528, -0.087156, -0.069756, -0.052336, -0.034900, -0.017452]);
+        const baseDataSize = 360;
+
+        var ltBox128y128 = null;
+        var rtBox128y128 = null;
+        var box256y256 = null;
+        var box1024y128 = null;
+
+        var insideAnimationFlag = false;
+        var animationStop = true;
+        var animationTimer = null;
+        var animationSpeed = 230; // milli-seconds
+        var isGreen = false;
+        var color = {
+            rr: 255,
+            gg: 255,
+            bb: 255,
+            aa: 255
+        };
+
+        function isBusy(flag) {
+            let before = insideAnimationFlag;
+            insideAnimationFlag = flag;
+            return before;
+        }
+
+        function updateCanvasBox(config, newBoxData, bits, n_bits) {
+            let canvasBox = config.canvasBox;
+            let drawBeginOkay;
+            try {
+                drawBeginOkay = canvasBox.drawBegin(document);
+                if (drawBeginOkay) {
+                    canvasBox.drawClearBackground(isGreen);
+                    canvasBox.drawOnCanvas(n_bits, bits, false, color.rr, color.gg, color.bb);
+                }
+            } catch (e) {
+                console.error(e);
+            } finally {
+                if (drawBeginOkay) {
+                    canvasBox.drawEnd();
+                }
+            }
+            return drawBeginOkay;
+        }
+
+        function doAnimation(config) {
+            let canvasBox = config.canvasBox;
+            if (canvasBox.setBusy(true) === true) {
+                return false;
+            }
+            // let boxData = CanvasToolClass.createBoxDataStructure(config.Data, config.nData, config.width);
+            let boxData = {
+                _name: "BoxDataStructure",
+                data: config.Data,
+                size: config.nData,
+                threshold: config.iEnd,
+                block: config.width,
+                offset: 0,
+                iStart: 0,
+                iEnd: 0,
+                nextOffset: 0
+            };
+            // Extract blocks to render.
+            let alias = [] = CanvasToolClass.extractDataForBoxDataStructure(boxData, config.offset, config.iEnd, config.nextOffset);
+            let isOkay = alias[0];
+            let newBoxData = alias[1];
+            let bits = alias[2];
+            let n_bits = alias[3];
+            let sBoxData, offset = newBoxData.offset;
+            if (!isOkay) {
+                if (config.nError < 4) {
+                    // For debugging purpose only.
+                    sBoxData = JSON.stringify({
+                        bits: bits !== null,
+                        n_bits: n_bits,
+                        iStart: newBoxData.iStart,
+                        iEnd: newBoxData.iEnd,
+                        offset: offset,
+                        nextOffset: newBoxData.nextOffset
+                    });
+                    console.log(`doAnimation - ${config.canvasId} - ${sBoxData}`);
+                    config.nError += 1;
+                }
+                canvasBox.setBusy(false);
+                return false;
+            }
+
+            canvasBox.setBusy(false);
+            if (updateCanvasBox(config, newBoxData, bits, n_bits)) {
+
+                offset += 1;
+                offset = offset % config.nData;
+
+            } else {
+                offset = 0;
+            }
+
+            config.offset = offset;
+            return true;
+        }
+
+        function animateCanvasBoxes() {
+            if (isBusy(true) === true) {
+                console.log("animateCanvasBoxes isBusy");
+                return false;
+            }
+            if (animationStop) {
+                isBusy(false);
+                return false;
+            }
+            setOrClearAnimationTimer(true);
+            doAnimation(ltBox128y128);
+            doAnimation(rtBox128y128);
+            doAnimation(box256y256);
+            doAnimation(box1024y128);
+            setOrClearAnimationTimer(false);
+            isBusy(false);
+            return true;
+        }
+
+        function setOrClearAnimationTimer(isClear) {
+            let myTimeout = animationTimer;
+            animationTimer = null;
+            if (myTimeout !== null) clearTimeout(myTimeout);
+            if (!isClear) {
+                animationTimer = setTimeout(animateCanvasBoxes, animationSpeed);
+            }
+            animationStop = isClear;
+        }
+
+        function buildCanvasData(size, canvasId, width, height, border, ratio, nextOffset) {
+            let nData = baseDataSize * size;
+            let Data = new Int16Array(nData);
+            let index, n, offset, value;
+            let half = parseInt(height / ratio, 10);
+            for (n = 0, offset = 0;
+                (n < size) && (offset < nData); n++) {
+                for (index = 0;
+                    (index < baseDataSize) && (offset < nData); index++, offset++) {
+                    value = baseData[index];
+                    value = value * half;
+                    if (value < 0.0) {
+                        value += -0.5;
+                    } else {
+                        value += 0.5;
+                    }
+                    Data[offset] = parseInt(value, 10);
+                }
+            }
+            let iEnd = nData - 1;
+            let canvasBox = new CanvasToolClass(canvasId, width, height, border);
+            return {
+                offset: 0,
+                threshold: iEnd,
+                iStart: 0,
+                iEnd: iEnd,
+                width: width,
+                height: height,
+                nextOffset: nextOffset,
+                Data: Data,
+                nData: nData,
+                canvasBox: canvasBox,
+                canvasId: canvasId,
+                nError: 0
+            };
+        }
+
+        function startCanvas(_this) {
+            isGreen = false;
+            insideAnimationFlag = false;
+            animationStop = true;
+            animationTimer = null;
+            // (128 x 128) + (128 x 128) + (256 x 256) + (1024 * 128) := 229376 loops
+            animationSpeed = 230; // milli-seconds
+            isBusy(true);
+            let speed;
+            speed = parseInt((128 * 3) / 2, 10);
+            ltBox128y128 = buildCanvasData(64, "ltcanvasx128y128", 128, 128, 4, 3, speed);
+            rtBox128y128 = buildCanvasData(64, "rtcanvasx128y128", 128, 128, 4, 3, speed);
+            speed = parseInt((256 * 3) / 2, 10);
+            box256y256 = buildCanvasData(64, "canvasx256y256", 256, 256, 4, 3, speed);
+            speed = parseInt((1024 * 3) / 2, 10);
+            box1024y128 = buildCanvasData(64, "canvasx1024y128", 1024, 128, 4, 3, speed);
+            setOrClearAnimationTimer(false);
+            isBusy(false);
+        }
+    </script>
+</body>
+
+</html>

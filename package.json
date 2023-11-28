@@ -1,0 +1,30 @@
+{
+  "name": "js-sdk-canvas",
+  "version": "1.0.1",
+  "description": "CanvasToolClass - Class to manage the pixel to draw into canvas in Context.ImageData (Canvas API).",
+  "main": "js-sdk-canvas.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmalbonph/js-sdk-canvas.git"
+  },
+  "keywords": [
+    "CanvasToolCass",
+    "canvas",
+    "Canvas",
+    "API"
+  ],
+  "author": "albonteddy@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tmalbonph/js-sdk-canvas/issues"
+  },
+  "homepage": "https://github.com/tmalbonph/js-sdk-canvas#readme",
+  "dependencies": {
+    "eslint": "^8.54.0",
+    "eslint-plugin-markdown": "^3.0.1",
+    "express": "^4.18.2"
+  }
+}

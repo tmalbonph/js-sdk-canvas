@@ -3,6 +3,26 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Private configurations
+*.npmrc
+*.env
+
+# Java based tools
+*.jar
+
+# Jetbrain
+.idea/
+
+# Eclipse
+.classes/
+.metadata/
+.recommenders/
+.settings/
+
+# My tools
+tools/
+package-lock.json
+
 # User-specific files
 *.rsuser
 *.suo
@@ -396,3 +416,12 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+*.html
+*.js
+
+html/
+!html/canvas-demo.html
+js/
+!js/js-sdk-canvas-1.0.1.js
+!test.js
