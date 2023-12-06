@@ -170,7 +170,6 @@
         var rtBox128y128 = null;
         var box256y256 = null;
         var box1024y128 = null;
-
         var insideAnimationFlag = false;
         var animationStop = true;
         var animationTimer = null;
@@ -214,6 +213,8 @@
                 return false;
             }
             // let boxData = CanvasToolClass.createBoxDataStructure(config.Data, config.nData, config.width);
+            if (config.nextOffset < 1) config.nextOffset = 1;
+            if (config.offset >= config.iEnd) config.offset = 0;
             let boxData = {
                 _name: "BoxDataStructure",
                 data: config.Data,
@@ -330,6 +331,30 @@
             };
         }
 
+        function cloneCanvasBox(config, divsize) {
+            let clone = Object.assign({}, config);
+            let nData = parseInt(config.nData / divsize, 10);
+            let Data = new Int16Array(nData);
+            let index, offset;
+            for (index = 0, offset = 0;
+                (offset < config.nData) && (index < nData); index++, offset += divsize) {
+                Data[index] = config.Data[offset];
+            }
+            while (index < nData) {
+                Data[index++] = 0;
+            }
+            let iEnd = nData - 1;
+            // Recalculate nextOffset
+            let speed = parseInt((config.width * 3) / 2, 10);
+            if (speed > iEnd) speed = iEnd;
+            clone.nextOffset = speed;
+            clone.Data = Data;
+            clone.nData = nData;
+            clone.iEnd = iEnd;
+            clone.threshold = iEnd;
+            return clone;
+        }
+
         function startCanvas(_this) {
             isGreen = false;
             insideAnimationFlag = false;
@@ -338,14 +363,25 @@
             // (128 x 128) + (128 x 128) + (256 x 256) + (1024 * 128) := 229376 loops
             animationSpeed = 230; // milli-seconds
             isBusy(true);
-            let speed;
-            speed = parseInt((128 * 3) / 2, 10);
+            let speed = parseInt((128 * 3) / 2, 10);
             ltBox128y128 = buildCanvasData(64, "ltcanvasx128y128", 128, 128, 4, 3, speed);
+            let clone = cloneCanvasBox(ltBox128y128, 9);
+            ltBox128y128 = clone;
+
             rtBox128y128 = buildCanvasData(64, "rtcanvasx128y128", 128, 128, 4, 3, speed);
+            clone = cloneCanvasBox(rtBox128y128, 8);
+            rtBox128y128 = clone;
+
             speed = parseInt((256 * 3) / 2, 10);
             box256y256 = buildCanvasData(64, "canvasx256y256", 256, 256, 4, 3, speed);
+            clone = cloneCanvasBox(box256y256, 5);
+            box256y256 = clone;
+
             speed = parseInt((1024 * 3) / 2, 10);
             box1024y128 = buildCanvasData(64, "canvasx1024y128", 1024, 128, 4, 3, speed);
+            clone = cloneCanvasBox(box1024y128, 3);
+            box1024y128 = clone;
+
             setOrClearAnimationTimer(false);
             isBusy(false);
         }
